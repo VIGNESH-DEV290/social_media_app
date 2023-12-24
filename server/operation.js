@@ -18,19 +18,19 @@ async function insertUser(name,profile,password,headline){
     const res=await connection.query("insert into users(name,profile,password,headline)values(?,?,?,?)",[name,profile,password,headline]);
 }
 async function insertPost(profile,content){
-    const res=await connection.query(`Insert into posts(profile,content,likes,shares)values(?,?,0,0)`,[profile,content]);
+    const res=await connection.query("Insert into posts(profile,content,likes,shares)values(?,?,0,0)",[profile,content]);
 
 }
 async function likeFun(content){
-    const output=await connection.query("select `likes` from posts where content=?",[content])
-    const likes=output[0][0]?.likes
+    const output=await connection.query("select likes from posts where content=?",[content])
+    const likes=output[0][0].likes
     const incLikes=likes+1;
     await connection.query("update posts set likes=? where content=?",[incLikes,content])
 
 }
 async function shareFun(content){
-    const output=await connection.query("select `shares` from posts where content=?",[content]) 
-    const shares=output[0][0]?.shares
+    const output=await connection.query("select shares from posts where content=?",[content]) 
+    const shares=output[0][0].shares
     const incShares=shares+1;
     await connection.query("update posts set shares=? where content=?",[incShares,content])
 }

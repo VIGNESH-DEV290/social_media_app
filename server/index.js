@@ -23,9 +23,9 @@ app.post("/login",async(req,res)=>{
     const token=jwt.sign(payload,secret)
     res.cookie("token",token)
     res.redirect("/posts")
- }  else
-{
-   res.send("Invalid username or password")}
+ } else{
+   res.send("Invalid username or password")
+}
 })
 app.get("/posts",verifyLogin,async(req,res)=>{
     const output=await readPosts()
